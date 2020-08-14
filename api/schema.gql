@@ -43,14 +43,9 @@ input UserInput {
 
 input MessageInput {
   content: String!
-  user: MessageUserInput!
+  userId: Float!
 }
 
-input MessageUserInput {
-  connect: UserMessageConnectInput
-  create: UserInput
-}
-
-input UserMessageConnectInput {
-  id: Float!
+type Subscription {
+  messageAdded: Message!
 }
