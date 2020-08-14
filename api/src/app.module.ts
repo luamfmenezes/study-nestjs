@@ -18,7 +18,11 @@ const graphQLImports = [UserResolver, MessageResolver];
     TypeOrmModule.forRoot(ormConfig),
     RepoModule,
     ...graphQLImports,
-    GraphQLModule.forRoot({ autoSchemaFile: 'schema.gql', playground: true }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+      playground: true,
+      installSubscriptionHandlers: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
