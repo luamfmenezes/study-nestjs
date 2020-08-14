@@ -1,28 +1,51 @@
-import {} from "apollo-boost";
 import React from "react";
-// import { ApolloProvider } from "@apollo/react-hooks";
 import {
   ApolloProvider,
   ApolloClient,
   createHttpLink,
   InMemoryCache,
+  split,
 } from "@apollo/client";
+import Messages from "./components/Messages";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities";
 
-const link = createHttpLink({
-  uri: "http://localhost:3333",
-});
+// const httpLink = createHttpLink({
+//   uri: "http://localhost:3333/graphql",
+// });
 
-const client = new ApolloClient({
-  link,
-  cache: new InMemoryCache(),
-});
+// const wsLink = new WebSocketLink({
+//   uri: `ws://localhost:3333/graphql`,
+//   options: {
+//     reconnect: true,
+//   },
+// });
+
+// const splitLink = split(
+//   ({ query }) => {
+//     const definition = getMainDefinition(query);
+//     return (
+//       definition.kind === "OperationDefinition" &&
+//       definition.operation === "subscription"
+//     );
+//   },
+//   wsLink,
+//   httpLink
+// );
+
+// const client = new ApolloClient({
+//   link: splitLink,
+//   cache: new InMemoryCache(),
+// });
+
+import client from "./services/api";
+import Users from "./components/Users";
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <h1>Messages</h1>
-      </div>
+      <Messages />
+      <Users />
     </ApolloProvider>
   );
 }
