@@ -6,8 +6,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import ormConfig from './config/orm';
 
+import UserResolver from './resolvers/user.resolver';
+import MessageResolver from './resolvers/message.resolver';
+
+import { GraphQLModule } from '@nestjs/graphql';
+
+const graphQLImports = [UserResolver, MessageResolver];
+
 @Module({
-  imports: [TypeOrmModule.forRoot(ormConfig), RepoModule],
+  imports: [
+    TypeOrmModule.forRoot(ormConfig),
+    RepoModule,
+    ...graphQLImports,
+    GraphQLModule.forRoot({ autoSchemaFile: 'schema.gql', playground: true }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
